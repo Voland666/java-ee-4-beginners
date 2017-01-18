@@ -3,6 +3,8 @@ package com.acme.etl.test;
 import com.acme.etl.loader.UserWriter;
 import com.acme.etl.core.User;
 
+import java.util.Collection;
+
 /**
  * @author vm.andreev
  */
@@ -20,7 +22,7 @@ class UserWriterStub implements UserWriter {
      * @param users
      */
     @Override
-    public void save(User... users) {
+    public void save(Collection<User> users) {
         for (User user : users) {
             if (user != null) {
                 System.out.println("Saved: " + user + " to " + instance);

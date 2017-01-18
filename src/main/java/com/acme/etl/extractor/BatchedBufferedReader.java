@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 /**
  * Created by vm.andreev on 16.01.17.
  */
-public class BatchedBufferedReader implements Closeable, Iterator {
+public class BatchedBufferedReader implements AutoCloseable, Iterator {
     private int batchSize;
     private BufferedReader bufferedReader;
     private boolean hasNextBatch;

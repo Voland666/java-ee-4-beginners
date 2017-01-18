@@ -10,7 +10,7 @@ import java.util.Collection;
 /**
  * @author vm.andreev
  */
-public interface UserReader extends Closeable {
+public interface UserReader extends AutoCloseable {
 
     Collection<User> readUsers() throws UserReaderException;
 

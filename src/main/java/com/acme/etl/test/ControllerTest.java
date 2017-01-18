@@ -4,8 +4,10 @@ import com.acme.etl.core.Controller;
 import com.acme.etl.exceptions.ETLException;
 import com.acme.etl.extractor.BatchedBufferedReader;
 import com.acme.etl.extractor.CSVUserReader;
+import com.acme.etl.loader.DBUserWriter;
 
 import java.io.*;
+import java.sql.SQLException;
 
 
 /**
@@ -20,10 +22,13 @@ public class ControllerTest {
      */
     public static void main(String[] args) {
         try {
-            try (CSVUserReader csvUserReader = new CSVUserReader(new BatchedBufferedReader(3, new BufferedReader(new FileReader(new File(args[0])))))) {
+            String connectionUrl = "jdbc:derby://127.0.0.1:1527/example";
+            try (
+                    CSVUserReader csvUserReader = new CSVUserReader(new BatchedBufferedReader(3, new BufferedReader(new FileReader(new File(args[0])))));
+            ) {
                 Controller controller = new Controller(
                         csvUserReader,
-                        new UserWriterStub("LDAP"), new UserWriterStub("DB")
+                        new DBUserWriter(connectionUrl), new UserWriterStub("LDAP")
                 );
 
                 try {

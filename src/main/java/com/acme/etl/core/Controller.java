@@ -2,9 +2,11 @@ package com.acme.etl.core;
 
 import com.acme.etl.exceptions.ETLException;
 import com.acme.etl.exceptions.UserReaderException;
+import com.acme.etl.exceptions.UserWriterException;
 import com.acme.etl.extractor.UserReader;
 import com.acme.etl.loader.UserWriter;
 
+import java.sql.SQLException;
 import java.util.Collection;
 
 /**
@@ -34,7 +36,11 @@ public class Controller {
         }
         while (users != null && users.size() > 0) {
             for (UserWriter userWriter : userWriters) {
-                userWriter.save(users);
+                try {
+                    userWriter.save(users);
+                } catch (UserWriterException e) {
+                    throw new ETLException("Can not write user to storage", e);
+                }
             }
             try {
                 users = userReader.readUsers();

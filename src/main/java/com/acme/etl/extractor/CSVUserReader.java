@@ -4,6 +4,7 @@ import com.acme.etl.core.User;
 import com.acme.etl.exceptions.UserReaderException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -22,7 +23,7 @@ public class CSVUserReader implements UserReader {
     public Collection<User> readUsers() throws UserReaderException {
         if (batchedBufferedReader.hasNext()) {
             Collection<String> userLines = batchedBufferedReader.next();
-            Collection<User> users = new HashSet<>();
+            Collection<User> users = new ArrayList<>(userLines.size());
             for (String userLine : userLines) {
                 String[] userParameters = userLine.split(",");
                 users.add(new User(Integer.parseInt(userParameters[0]), userParameters[1]));

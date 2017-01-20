@@ -136,22 +136,29 @@
 ## JNDI и изменения данных в сервисе
 
 ### Введение в JNDI
-- Концепции служб каталога. Схемы именования
+- Концепции служб каталога. Схемы именования. ()
 - Основные пакеты JNDI
+- https://docs.oracle.com/javase/tutorial/jndi/index.html
+- https://docs.oracle.com/javase/tutorial/jndi/concepts/index.html
 
 ### Naming Operations
 - Поиск в каталоге 
 - Контексты и связывание
+- https://docs.oracle.com/javase/tutorial/jndi/ops/index.html
+- http://www.java2s.com/Code/Java/JNDI-LDAP/CatalogJNDI-LDAP.htm
 
 ### Directory Operations:
+- https://docs.oracle.com/javase/tutorial/jndi/ldap/index.html
 - Работа с аттрибутами
+- http://www.zytrax.com/books/ldap/ape/
 - Поиск по каталогу
+- https://docs.oracle.com/javase/tutorial/jndi/ops/search.html
 
 ### Связываем вместе Naming и Directory Operations:
-- String Names и Structured Names
-- Composite Names
-- Compound Names
-- Name Parsers
+- String Names и Structured Names (http://docs.oracle.com/javase/jndi/tutorial/beyond/names/string.html)
+- Composite Names (http://docs.oracle.com/javase/jndi/tutorial/getStarted/concepts/glossary.html#COMPOSITENAME)
+- Compound Names (http://docs.oracle.com/javase/jndi/tutorial/beyond/names/compound.html)
+- Name Parsers (http://docs.oracle.com/javase/jndi/tutorial/beyond/names/parse.html)
 
 ## Servlet API
 - Lifecycle
@@ -165,16 +172,21 @@
 - JSTL
 
 ## WS (REST, SOAP)
+- http://www.mkyong.com/tutorials/jax-ws-tutorials/
+- http://www.journaldev.com/9123/jax-ws-tutorial
+- http://docs.oracle.com/javaee/6/tutorial/doc/bnayn.html
 
 ### Что такое веб-сервис 
-- Протокол SOAP: 
-- Структура сообщения
-- WSDL + различные варианты биндинга (rpc/encoded, rpc/literal, document/literal) 
+- Протокол SOAP
+- Структура сообщения (https://www.mkyong.com/webservices/jax-ws/jax-ws-hello-world-example-document-style/)
+- WSDL + различные варианты биндинга (rpc/encoded, rpc/literal, document/literal) http://www.mkyong.com/webservices/jax-ws/jax-ws-hello-world-example/
+- http://www.javatpoint.com/jax-ws-tutorial + http://stackoverflow.com/questions/9062475/what-is-the-difference-between-document-style-and-rpc-style-communication + http://amaloff.blogspot.ru/2015/08/wsdl-wsdl.html
 
-### JAX-WS на примере Axis
-- WSDL-to-Java 
-- Java-to-WSDL 
-- Client (sync/async/dispatch)
+### JAX-WS на примере JAX-WS RI + Metro
+- https://coderanch.com/t/625764/certification/difference-wsimport-wsgen-command
+- WSDL-to-Java (https://www.mkyong.com/webservices/jax-ws/jax-ws-wsimport-tool-example/)
+- Java-to-WSDL (http://www.mkyong.com/webservices/jax-ws/jax-ws-wsgen-tool-example/)
+- Client (sync/async/dispatch) http://www.ibm.com/support/knowledgecenter/SSAW57_7.0.0/com.ibm.websphere.nd.iseries.doc/info/iseriesnd/ae/twbs_jaxwsclientasync.html + https://dzone.com/articles/jax-rs-20-asynchronous-server-and-client + https://docs.oracle.com/cd/E14571_01/web.1111/e13734/asynch.htm#WSADV115
 - Проблемы совместимости
 
 ### JAX-RS
@@ -188,8 +200,18 @@
 - Работа с XML 
 - Понятие схемы и пример XSD
 - Способы разбора документа 
-- JAXP (DOM/SAX/StAX) 
-- JAXB (overview/marshaling/unmarshalling)
+- https://docs.oracle.com/cd/B28359_01/appdev.111/b28394/adx_j_parser.htm#ADXDK19108
+- XSLT
+- https://docs.oracle.com/javase/tutorial/jaxp/stax/why.html
+
+### JAXP
+- DOM https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
+- SAX https://www.mkyong.com/java/how-to-read-xml-file-in-java-sax-parser/
+- StAX 
+
+### JAXB
+- overview/marshaling/unmarshalling
+- https://www.mkyong.com/java/jaxb-hello-world-example/ + http://docs.oracle.com/javaee/5/tutorial/doc/bnazg.html
 - Преобразования XML
 
 ## Общие принципы разработки JavaEE приложений с помощью  фреймворков JSF
@@ -215,3 +237,7 @@
 # Литература
 - http://tinyurl.com/skilltrek-reading-list
 - http://agilerussia.ru/practices/version-control-with-multiple-teams/
+
+# Еще тренинги
+- http://tinyurl.com/skilltrek-trainings
+

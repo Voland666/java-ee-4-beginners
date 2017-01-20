@@ -6,8 +6,11 @@ import com.acme.etl.extractor.BatchedBufferedReader;
 import com.acme.etl.extractor.BatchedCSVUserReader;
 import com.acme.etl.extractor.CSVUserReader;
 import com.acme.etl.loader.DBUserWriter;
+import com.acme.etl.loader.LDAPUserWriter;
 
+import javax.naming.Context;
 import java.io.*;
+import java.util.Properties;
 
 
 /**
@@ -34,7 +37,7 @@ public class ControllerTest {
             ) {
                 Controller controller = new Controller(
                         batchedCsvUserReader,
-                        new DBUserWriter(connectionUrl), new UserWriterStub("LDAP")
+                        new DBUserWriter(connectionUrl), new LDAPUserWriter(getLDAPConnectionProperties())
                 );
 
                 try {
@@ -49,5 +52,18 @@ public class ControllerTest {
             e.printStackTrace();
             System.out.println("CSV file not found");
         }
+    }
+
+    private static Properties getLDAPConnectionProperties() {
+        Properties ldapProperties = new Properties();
+        ldapProperties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+        ldapProperties.put(Context.PROVIDER_URL, "ldap://localhost:10389/ou=system");
+        ldapProperties.put(Context.SECURITY_AUTHENTICATION, "simple");
+        ldapProperties.put(Context.SECURITY_PRINCIPAL, "uid=admin,ou=system");
+        ldapProperties.put(Context.SECURITY_CREDENTIALS, "secret");
+        ldapProperties.put("com.sun.jndi.ldap.connect.timeout", "5000");
+        ldapProperties.put("com.sun.jndi.ldap.connect.pool", "true");
+        ldapProperties.put("com.sun.jndi.ldap.connect.pool.debug", "fine");
+        return ldapProperties;
     }
 }

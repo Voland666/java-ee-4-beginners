@@ -1,12 +1,9 @@
 package com.acme.etl.extractor;
 
-import com.acme.etl.exceptions.UserReaderException;
-
 import java.io.BufferedReader;
-import java.io.Closeable;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
@@ -14,56 +11,52 @@ import java.util.function.Consumer;
  * Created by vm.andreev on 16.01.17.
  */
 public class BatchedBufferedReader implements AutoCloseable, Iterator {
-    private int batchSize;
-    private BufferedReader bufferedReader;
-    private boolean hasNextBatch;
-    private String nextBatchLine = null;
+    private final int batchSize;
+    private final BufferedReader bufferedReader;
+    private Collection<String> nextBatch = null;
 
     public BatchedBufferedReader(int batchSize, BufferedReader bufferedReader) {
         this.batchSize = batchSize;
         this.bufferedReader = bufferedReader;
-        this.hasNextBatch = true;
-        this.nextBatchLine = null;
     }
 
-    public void close() throws IOException {
+    @Override
+    public void close() throws Exception {
         this.bufferedReader.close();
     }
 
     @Override
     public boolean hasNext() {
-        if (hasNextBatch) {
-            try {
-                this.nextBatchLine = this.bufferedReader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Unable to read line from file");
-                return false;
-            }
-        }
-        return (this.nextBatchLine != null);
+        nextBatch = next();
+        return nextBatch.size() > 0;
     }
 
     @Override
     public Collection<String> next() {
-        Collection<String> batchLines = new HashSet<String>();
-        batchLines.add(nextBatchLine);
-        for (int counter = 1; counter < batchSize; counter++) {
-            String line = null;
+        Collection<String> result;
+        if (nextBatch == null) {
+            result = fetchBatch();
+        } else {
+            result = nextBatch;
+            nextBatch = fetchBatch();
+        }
+        return result;
+    }
+
+    private Collection<String> fetchBatch() {
+        Collection<String> batchLines = new ArrayList<>();
+        String batchLine;
+        for (int counter = 0; counter < batchSize; counter++) {
             try {
-                line = bufferedReader.readLine();
+                batchLine = bufferedReader.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Unable to read line from file");
-                hasNextBatch = false;
-                nextBatchLine = null;
+                System.out.println("The bufferReader can not read line");
                 break;
             }
-            if (line != null) {
-                batchLines.add(line);
+            if (batchLine != null) {
+                batchLines.add(batchLine);
             } else {
-                hasNextBatch = false;
-                nextBatchLine = null;
                 break;
             }
         }
@@ -72,11 +65,11 @@ public class BatchedBufferedReader implements AutoCloseable, Iterator {
 
     @Override
     public void remove() {
-
+        throw new UnsupportedOperationException("remove");
     }
 
     @Override
     public void forEachRemaining(Consumer action) {
-
+        throw new UnsupportedOperationException("forEachRemaining");
     }
 }

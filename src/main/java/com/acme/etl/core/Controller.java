@@ -6,7 +6,6 @@ import com.acme.etl.exceptions.UserWriterException;
 import com.acme.etl.extractor.UserReader;
 import com.acme.etl.loader.UserWriter;
 
-import java.sql.SQLException;
 import java.util.Collection;
 
 /**
@@ -27,27 +26,12 @@ public class Controller {
     }
 
     public void doETL() throws ETLException {
-        Collection<User> users;
         try {
-            users = userReader.readUsers();
+            userReader.readAndSave(userWriters);
         } catch (UserReaderException e) {
-            e.printStackTrace();
             throw new ETLException("Can not extract users", e);
-        }
-        while (users != null && users.size() > 0) {
-            for (UserWriter userWriter : userWriters) {
-                try {
-                    userWriter.save(users);
-                } catch (UserWriterException e) {
-                    throw new ETLException("Can not write user to storage", e);
-                }
-            }
-            try {
-                users = userReader.readUsers();
-            } catch (UserReaderException e) {
-                e.printStackTrace();
-                throw new ETLException("Can not extract users", e);
-            }
+        } catch (UserWriterException e) {
+            throw new ETLException("Can not load users", e);
         }
     }
 

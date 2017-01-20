@@ -2,7 +2,6 @@ package com.acme.etl.extractor;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.function.Consumer;
 
 /**
  * Created by vm.andreev on 20.01.17.

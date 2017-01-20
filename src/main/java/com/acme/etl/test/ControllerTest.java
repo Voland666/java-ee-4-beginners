@@ -24,7 +24,13 @@ public class ControllerTest {
         try {
             String connectionUrl = "jdbc:derby://127.0.0.1:1527/example";
             try (
-                    BatchedCSVUserReader batchedCsvUserReader = new BatchedCSVUserReader(new CSVUserReader(new BatchedBufferedReader(3, new BufferedReader(new FileReader(new File(args[0]))))));
+                    BatchedCSVUserReader batchedCsvUserReader = new BatchedCSVUserReader(
+                            new CSVUserReader(
+                                    new BatchedBufferedReader(
+                                            3,
+                                            new BufferedReader(new FileReader(new File(args[0]))))
+                            )
+                    )
             ) {
                 Controller controller = new Controller(
                         batchedCsvUserReader,

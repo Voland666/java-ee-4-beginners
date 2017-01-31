@@ -37,14 +37,16 @@ public class XMLReader implements Iterator, AutoCloseable {
 
     private Collection<Node> fetchBatch() {
         Collection<Node> batchNodes = new ArrayList<>();
-        Node batchNode;
-        NodeList nodes = document.getElementsByTagName("user");
-        for (int counter = 0; counter < nodes.getLength(); counter++) {
-            batchNode = nodes.item(counter);
-            if (batchNode != null) {
-                batchNodes.add(batchNode);
-            } else {
-                break;
+        if (nextBatch == null) {
+            Node batchNode;
+            NodeList nodes = document.getElementsByTagName("user");
+            for (int counter = 0; counter < nodes.getLength(); counter++) {
+                batchNode = nodes.item(counter);
+                if (batchNode != null) {
+                    batchNodes.add(batchNode);
+                } else {
+                    break;
+                }
             }
         }
         return batchNodes;

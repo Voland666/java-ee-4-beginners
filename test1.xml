@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<users>
+	<user id="11">
+		<name>Сидоров</name>
+	</user>
+	<user id="12">
+		<name>Попов</name>
+	</user>
+	<user id="13">
+		<name>Иванов</name>
+	</user>
+	<user id="14">
+		<name>Кузнецов</name>
+	</user>
+</users>

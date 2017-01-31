@@ -10,12 +10,12 @@ import java.util.function.Consumer;
 /**
  * Created by vm.andreev on 16.01.17.
  */
-public class BatchedBufferedReader implements AutoCloseable, Iterator {
+public class CSVBufferedReader implements AutoCloseable, Iterator {
     private final int batchSize;
     private final BufferedReader bufferedReader;
     private Collection<String> nextBatch = null;
 
-    public BatchedBufferedReader(int batchSize, BufferedReader bufferedReader) {
+    public CSVBufferedReader(int batchSize, BufferedReader bufferedReader) {
         this.batchSize = batchSize;
         this.bufferedReader = bufferedReader;
     }

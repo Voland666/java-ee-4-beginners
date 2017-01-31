@@ -12,10 +12,10 @@ import java.util.*;
  */
 public class BatchedCSVUserReader implements UserReader, AutoCloseable {
 
-    private final CSVUserReader csvUserReader;
+    private final BatchedUserReader batchedUserReader;
 
-    public BatchedCSVUserReader(CSVUserReader csvUserReader) {
-        this.csvUserReader = csvUserReader;
+    public BatchedCSVUserReader(BatchedUserReader batchedUserReader) {
+        this.batchedUserReader = batchedUserReader;
     }
 
     private Collection<User> parseUsers(Collection<String> batch) {
@@ -29,7 +29,7 @@ public class BatchedCSVUserReader implements UserReader, AutoCloseable {
     }
     @Override
     public void readAndSave(UserWriter... userWriters) throws UserReaderException, UserWriterException {
-        for (Collection<String> batch : csvUserReader) {
+        for (Collection<String> batch : batchedUserReader) {
             Collection<User> batchUsers = parseUsers(batch);
             for (UserWriter userWriter : userWriters) {
                 userWriter.save(batchUsers);
@@ -39,7 +39,7 @@ public class BatchedCSVUserReader implements UserReader, AutoCloseable {
 
     @Override
     public void close() throws Exception {
-        this.csvUserReader.close();
+        this.batchedUserReader.close();
     }
 
 }
